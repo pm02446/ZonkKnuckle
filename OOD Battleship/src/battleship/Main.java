@@ -13,6 +13,7 @@ import javafx.stage.*;
 
 public class Main extends Application{
 	//I ADDED THIS ON A FORK
+	//AND THIS ON THE MAIN
 	Main me = this;
 	boolean myTurn = true;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
