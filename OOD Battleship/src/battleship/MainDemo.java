@@ -1,31 +1,14 @@
 package battleship;
 
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.*;
+import javafx.stage.Stage;
 
-
-
-public class Main extends Application{
-	//I ADDED THIS ON A FORK
-	//AND THIS ON THE MAIN
-	Main me = this;
-	boolean myTurn = true;
-	ReceivedCommandFactory fact = new ReceivedCommandFactory();
-	Image boardPlayer = new Image("https://i.imgur.com/UIOEQRN.png");
-	Image boardFoe = new Image("https://i.imgur.com/UIOEQRN.png");
-	Space[][] boardPlayerState = new Space[8][8];
-	Space[][] boardFoeState = new Space[8][8];
-	
-	public static void main(String[] args) {
-		launch();
-	}
-	
+public class MainDemo extends Main {
+	@Override
 	public void start(Stage primStage) throws Exception {
 		Pane boardPane = new Pane();
 		boardPane.setMinSize(330, 270);
@@ -56,6 +39,7 @@ public class Main extends Application{
 	}
 	
 	//for starting the program
+	@Override
 	public void totalInit() {
 		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
@@ -72,36 +56,14 @@ public class Main extends Application{
 						int ex = source.x;
 						int ey = source.y;
 						String msg = (ex+"|"+ey+"|attack");
+						//TODO: Remove wacky demo settings
+						//because this is a weirdo demo, the factory will create the command targeting ourselves
+						me.fact.makeCommand(me, me, msg).execute();		
 					}
 				});
 			}	
 		}
 		
 	}
-	//command to update ImageViews based on state of Space arrays
-	public void redrawBoards() {
-		for(int x=0;x<8;x++) {
-			for(int y=0;y<8;y++) {
-				boardPlayerState[x][y].setImage(boardPlayerState[x][y].spacePic);
-				boardPlayerState[x][y].setLayoutX(x*20);
-				boardPlayerState[x][y].setLayoutY(y*20);
-				boardFoeState[x][y].setImage(boardFoeState[x][y].spacePic);
-				boardFoeState[x][y].setLayoutX(170+(x*20));
-				boardFoeState[x][y].setLayoutY(y*20);
-			}
-		}
-	}
-	
-	//initialize the board state Space arrays to be blank on both sides
-	public void reinitBoards() {
-		for(int x=0;x<8;x++) {
-			for(int y=0;y<8;y++) {
-				boardPlayerState[x][y] = new Space(false, x, y); //space constructor w/ boolean determines target/playfield status
-				boardFoeState[x][y] = new Space(true,x, y);
-			}
-		}
-	}
-	
-
 
 }
