@@ -21,8 +21,6 @@ public class Main extends Application{
 	Image boardFoe = new Image("https://i.imgur.com/UIOEQRN.png");
 	Space[][] boardPlayerState = new Space[8][8];
 	Space[][] boardFoeState = new Space[8][8];
-	ImageView[][] playerImgs = new ImageView[8][8];
-	ImageView[][] foeImgs = new ImageView[8][8];
 	
 	public static void main(String[] args) {
 		launch();
@@ -42,8 +40,8 @@ public class Main extends Application{
 		//add all those pictures to the pane
 		for(int x=0;x<8;x++) {
 			for(int y=0;y<8;y++) {
-				boardPane.getChildren().add(playerImgs[x][y]);
-				boardPane.getChildren().add(foeImgs[x][y]);
+				boardPane.getChildren().add(boardPlayerState[x][y]);
+				boardPane.getChildren().add(boardFoeState[x][y]);
 			}
 		}
 		//TODO: Remove demo settings
@@ -59,13 +57,7 @@ public class Main extends Application{
 	
 	//for starting the program
 	public void totalInit() {
-		//actually make ImageViews for each space
-		for(int x=0;x<8;x++) {
-			for(int y=0;y<8;y++) {
-				playerImgs[x][y] = new ImageView();
-				foeImgs[x][y] = new ImageView();
-			}	
-		}
+		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
 		reinitBoards();
 		redrawBoards();
@@ -73,15 +65,12 @@ public class Main extends Application{
 		//this is the observer pattern here:
 		for(int x=0;x<8;x++) {
 			for(int y=0;y<8;y++) {
-				foeImgs[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
+				boardFoeState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
 					public void handle(MouseEvent event) {
-						ImageView source = (ImageView)event.getSource();
+						Space source = (Space)event.getSource();
 						//FOES/targets ARE ON THE RIGHT
-						double testvar = source.getLayoutX();
-						double ax = (source.getLayoutX()-170)/20;
-						double ay = source.getLayoutY()/20;
-						int ex = (int)ax;
-						int ey = (int)ay;
+						int ex = source.x;
+						int ey = source.y;
 						String msg = (ex+"|"+ey+"|attack");
 						//TODO: Remove wacky demo settings
 						//because this is a weirdo demo, the factory will create the command targeting ourselves
@@ -96,12 +85,12 @@ public class Main extends Application{
 	public void redrawBoards() {
 		for(int x=0;x<8;x++) {
 			for(int y=0;y<8;y++) {
-				playerImgs[x][y].setImage(boardPlayerState[x][y].spacePic);
-				playerImgs[x][y].setLayoutX(x*20);
-				playerImgs[x][y].setLayoutY(y*20);
-				foeImgs[x][y].setImage(boardFoeState[x][y].spacePic);
-				foeImgs[x][y].setLayoutX(170+(x*20));
-				foeImgs[x][y].setLayoutY(y*20);
+				boardPlayerState[x][y].setImage(boardPlayerState[x][y].spacePic);
+				boardPlayerState[x][y].setLayoutX(x*20);
+				boardPlayerState[x][y].setLayoutY(y*20);
+				boardFoeState[x][y].setImage(boardFoeState[x][y].spacePic);
+				boardFoeState[x][y].setLayoutX(170+(x*20));
+				boardFoeState[x][y].setLayoutY(y*20);
 			}
 		}
 	}

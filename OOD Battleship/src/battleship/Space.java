@@ -1,8 +1,9 @@
 package battleship;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Space {
+public class Space extends ImageView {
 	Image trans = new Image("https://i.imgur.com/hC4v7fo.png");
 	Image missTemp = new Image("https://i.imgur.com/mKC6loN.png");
 	Image hitTemp = new Image("https://i.imgur.com/lbpqlVw.png");
@@ -48,7 +49,12 @@ public class Space {
 			spacePic = trans;
 		}
 	}
-	
+	public Space(Image image) {
+		super(image);
+	}
+	public Space() {
+		super();
+	}
 	public Space(boolean target, int x, int y) {
 		hasShip = false;
 		isHit = false;
@@ -61,5 +67,9 @@ public class Space {
 		else {
 			spacePic = trans;
 		}
+	}
+	public void setCoords(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }
