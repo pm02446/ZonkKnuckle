@@ -16,4 +16,10 @@ public class MissCommand implements Command{
 	target.boardFoeState[xCord][yCord].targMissed();
 	target.redrawBoards();
 	}
+
+	@Override
+	public void execute(Space[][] spaces) {
+		// TODO Auto-generated method stub
+		
+	}
 }

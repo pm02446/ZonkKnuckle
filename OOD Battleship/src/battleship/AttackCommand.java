@@ -18,5 +18,9 @@ public class AttackCommand implements Command{
 		target.redrawBoards();
 		sender.fact.makeCommand(sender, target, result).execute();
 	}
-
+	public void execute(Space[][] spaces) {
+		String result = spaces[xCord][yCord].hit();
+		target.redrawBoards();
+		sender.fact.makeCommand(sender, target, result).execute();
+	}
 }

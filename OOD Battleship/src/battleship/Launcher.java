@@ -19,7 +19,7 @@ public class Launcher {
 				System.out.println("Not yet implemented.");
 				break;
 			case 3: 
-				Application.launch(MainDemo.class);
+				Application.launch(MainEnemy.class);
 				break;
 			default:
 				System.out.println("what?");
