@@ -8,7 +8,7 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		// :c
-		System.out.println("Welcome to battleship! What would you like to launch?\n1: Host\n2: Client\n3: Demo");
+		System.out.println("Welcome to battleship! What would you like to launch?\n1: Host\n2: Client\n3: Demo \n4: Mystery");
 		Scanner in = new Scanner(System.in);
 		int input = in.nextInt();
 		switch (input){
@@ -19,6 +19,9 @@ public class Launcher {
 				System.out.println("Not yet implemented.");
 				break;
 			case 3: 
+				Application.launch(MainDemo.class);
+				break;
+			case 4:
 				Application.launch(MainEnemy.class);
 				break;
 			default:
