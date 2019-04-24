@@ -17,9 +17,11 @@ public class Space extends ImageView {
 	boolean isHit;
 	Ship ship;
 	public void addShip(Ship ship) {
-		this.ship = ship;
-		this.hasShip = true;
-		spacePic = shipTemp;
+		if(!hasShip) {
+			this.ship = ship;
+			this.hasShip = true;
+			spacePic = shipTemp;
+		}
 	}
 	public void targMissed() {
 		spacePic = missTemp;
@@ -39,9 +41,9 @@ public class Space extends ImageView {
 		else return (x+"|"+y+"|miss");
 	}
 	public Space(boolean target){
-		hasShip=false;
+		hasShip = false;
 		isHit = false;
-		isTarget=target;
+		isTarget = target;
 		if(target) {
 			spacePic = trans;
 		}

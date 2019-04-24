@@ -11,9 +11,7 @@ import javafx.stage.*;
 
 
 
-public class Main extends Application{
-	//I ADDED THIS ON A FORK
-	//AND THIS ON THE MAIN
+public abstract class Main extends Application{
 	Main me = this;
 	boolean myTurn = true;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
@@ -26,7 +24,11 @@ public class Main extends Application{
 		launch();
 	}
 	
-	public void start(Stage primStage) throws Exception {
+	public abstract void start(Stage primStage) throws Exception;
+	
+	//for starting the program
+	public Pane totalInit() {
+		//make the pane that serves as the foundation for the whole thing
 		Pane boardPane = new Pane();
 		boardPane.setMinSize(330, 270);
 		boardPane.setMaxSize(330,270);
@@ -35,32 +37,10 @@ public class Main extends Application{
 		boardFoeDisp.setLayoutX(170);
 		boardPane.getChildren().add(boardPlayDisp);
 		boardPane.getChildren().add(boardFoeDisp);
-		//initialize everything
-		totalInit();
-		//add all those pictures to the pane
-		for(int x=0;x<8;x++) {
-			for(int y=0;y<8;y++) {
-				boardPane.getChildren().add(boardPlayerState[x][y]);
-				boardPane.getChildren().add(boardFoeState[x][y]);
-			}
-		}
-		//TODO: Remove demo settings
-		//Force a ship to spawn at 3, 4
-		boardPlayerState[3][4].addShip(new ExShip(boardPlayerState[3][4], new Space[]{boardPlayerState[3][4]}));
-		redrawBoards();
-		//actually display shit
-		Scene boardScene = new Scene(boardPane);
-		primStage.setScene(boardScene);
-		primStage.show();
-		
-	}
-	
-	//for starting the program
-	public void totalInit() {
 		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
 		reinitBoards();
-		redrawBoards();
+		redrawBoards(); 
 		//THEN add listeners to every single one of them
 		//this is the observer pattern here:
 		for(int x=0;x<8;x++) {
@@ -68,17 +48,23 @@ public class Main extends Application{
 				boardFoeState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
-						//FOES/targets ARE ON THE RIGHT
-						int ex = source.x;
-						int ey = source.y;
-						String msg = (ex+"|"+ey+"|attack");
+						makeCommands(source);						
 					}
 				});
 			}	
 		}
-		
+		//add all those pictures to the pane
+		for(int x=0;x<8;x++) {
+			for(int y=0;y<8;y++) {
+				boardPane.getChildren().add(boardPlayerState[x][y]);
+				boardPane.getChildren().add(boardFoeState[x][y]);
+			}
+		}
+		//all of that construction is returned here
+		return boardPane;
 	}
-	//command to update ImageViews based on state of Space arrays
+	
+	//method to update ImageViews based on state of Space arrays
 	public void redrawBoards() {
 		for(int x=0;x<8;x++) {
 			for(int y=0;y<8;y++) {
@@ -102,6 +88,8 @@ public class Main extends Application{
 		}
 	}
 	
+	//abstract method called by target space listeners
+	abstract void makeCommands(Space target);
 
 
 }
