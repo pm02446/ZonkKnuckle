@@ -23,4 +23,5 @@ public class AttackCommand implements Command{
 		target.redrawBoards();
 		sender.fact.makeCommand(sender, target, result).execute();
 	}
+
 }

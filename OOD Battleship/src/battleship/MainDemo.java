@@ -14,7 +14,8 @@ public class MainDemo extends Main {
 		Pane boardPane = totalInit();
 		//TODO: Remove demo settings
 		//Force a ship to spawn at 3, 4
-		boardPlayerState[3][4].addShip(new ExShip(boardPlayerState[3][4], new Space[]{boardPlayerState[3][4]}));
+		//boardPlayerState[3][4].addShip(new ExShip(boardPlayerState[3][4], new Space[]{boardPlayerState[3][4]}));
+		new ExShip(boardPlayerState[3][4], new Space[]{boardPlayerState[3][4]});
 		redrawBoards();
 		//actually display shit
 		Scene boardScene = new Scene(boardPane);

@@ -13,7 +13,7 @@ public class Launcher {
 		int input = in.nextInt();
 		switch (input){
 			case 1:
-				System.out.println("Not yet implemented.");
+				Application.launch(HostMain.class);
 				break;
 			case 2:
 				System.out.println("Not yet implemented.");
