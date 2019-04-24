@@ -17,9 +17,8 @@ public class HitCommand implements Command {
 	}
 
 	@Override
-	public void execute(Main target) {
+	public void execute(Space[][] spaces) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

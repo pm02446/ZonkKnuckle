@@ -18,14 +18,10 @@ public class AttackCommand implements Command{
 		target.redrawBoards();
 		sender.fact.makeCommand(sender, target, result).execute();
 	}
-
-	@Override
-	public void execute(Main target) {
-		// TODO Auto-generated method stub
-		//check the hit
-		//make the hit
-		//send a command to the target's socket
-		
+	public void execute(Space[][] spaces) {
+		String result = spaces[xCord][yCord].hit();
+		target.redrawBoards();
+		sender.fact.makeCommand(sender, target, result).execute();
 	}
 
 }
