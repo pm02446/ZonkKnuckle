@@ -12,7 +12,7 @@ import javafx.stage.*;
 
 
 public abstract class Main extends Application{
-	Main me = this;
+	//Main me = this;
 	boolean myTurn = true;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
 	Image boardPlayer = new Image("https://i.imgur.com/UIOEQRN.png");

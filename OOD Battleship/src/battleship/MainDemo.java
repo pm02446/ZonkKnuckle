@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainDemo extends Main {
+	MainDemo me = new MainDemo();
 	@Override
 	public void start(Stage primStage) throws Exception {
 		//initialize it all
@@ -29,11 +30,17 @@ public class MainDemo extends Main {
 	void makeCommands(Space target) {
 		int ex = target.x;
 		int ey = target.y;
-		String msg = (ex+"|"+ey+"|attack");
+		String msg = (ex+"|"+ey+"|attack|init");
 		//TODO: Remove wacky demo settings
 		//because this is a weirdo demo, the factory will create the command targeting ourselves
 		//oh god oh fuck
 		me.fact.makeCommand(me,me.fact.makeCommand(me, msg).execute()).execute();		
+	}
+
+
+	@Override
+	public String toString() {
+		return "MainDemo";
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
 
@@ -24,8 +25,9 @@ public class HostMain extends Main {
 	static Socket s;
 	static DataInputStream din;
 	static DataOutputStream dout;
-	private BufferedReader reader;
-	private PrintWriter writer;
+	static InputStreamReader isr;
+	static BufferedReader reader;
+	static PrintWriter writer;
 	
 	public static void main(String[] args) {
 		launch();
@@ -48,16 +50,19 @@ public class HostMain extends Main {
 		  Button("Host"); 
 		  btnHost.setLayoutY(170); 
 		  btnHost.setLayoutX(170);
-		  btnHost.setOnMouseClicked(new EventHandler<MouseEvent>(){
-				public void handle(MouseEvent event) {
-					beginHosting();
-				}
-			});
+		/*
+		 * btnHost.setOnMouseClicked(new EventHandler<MouseEvent>(){ public void
+		 * handle(MouseEvent event) { me.fact.makeCommand(me,
+		 * "2|3|miss|response").execute(); } });
+		 */
 		  //contentPane.getChildren().add(ip); contentPane.getChildren().add(port);
-		  //contentPane.getChildren().add(btnHost);
+		  contentPane.getChildren().add(btnHost);
 		 
 		primStage.setScene(boardScene);
 		primStage.show();
+		//TODO: REMOVE this bitch
+		boardPlayerState[2][3].addShip(new ExShip(boardPlayerState[2][3],  new Space[]{boardPlayerState[2][3]}));
+		redrawBoards();
 		//okay here we go again
 		//makes a background thread to read from the socket
 		new Thread(() -> {
@@ -66,16 +71,27 @@ public class HostMain extends Main {
 				s = ss.accept();
 				din = new DataInputStream(s.getInputStream());
 				dout = new DataOutputStream(s.getOutputStream());
+				isr = new InputStreamReader(s.getInputStream());
 				//ideally this loop will allow us to continually read inputs from the client
-				while(!dead) {
+				while(!dead) { 
 					msgout = "";
 					msgin = din.readUTF();
+					String splat;
+					System.out.println("in "+ msgin);
 					if(!msgin.equals("")) {
-						Platform.runLater(() -> msgout = me.fact.makeCommand(me, msgin).execute());
-						dout.writeUTF(msgout);
+						Platform.runLater(() -> msgout = this.fact.makeCommand(this, msgin).execute());
+						Platform.runLater(() -> System.out.println("out "+msgout));
+						 splat = msgin.split("\\|")[3];
+						if(!splat.equals("response")){
+							Platform.runLater(() -> {
+								try {
+									dout.writeUTF(msgout);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							});
+						}
 					}
-					System.out.println("out "+msgout);
-					System.out.println("in "+msgin);
 				}
 			}
 			catch(Exception e) {
@@ -89,8 +105,8 @@ public class HostMain extends Main {
 	void makeCommands(Space target) {
 		int ex = target.x;
 		int ey = target.y;
-		String msg = (ex+"|"+ey+"|attack");
-		
+		String msg = (ex+"|"+ey+"|attack|init");
+		System.out.println("man "+ msg);
 		try {
 			dout.writeUTF(msg);
 		} catch (IOException e) {
@@ -115,6 +131,11 @@ public class HostMain extends Main {
 			//set up the sockets
 			
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "hostmain";
 	}
 
 }

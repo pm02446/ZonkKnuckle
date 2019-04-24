@@ -15,6 +15,8 @@ public class MissCommand implements Command{
 	public String execute() {		
 	target.boardFoeState[xCord][yCord].targMissed();
 	target.redrawBoards();
+	System.out.println(target.toString());
+	System.out.println("Miss");
 	return "";
 	}
 

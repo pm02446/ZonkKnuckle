@@ -23,9 +23,9 @@ public class ClientMain extends Main {
 	private BufferedReader reader;
 	private PrintWriter writer;
 	
+	boolean dead = false;
 	public static void main(String[] args0) {
-		ClientMain me = new ClientMain();
-		me.launch();
+		launch();
 	}
 	String msgin = "";
 	String msgout = "X|X|error";
@@ -33,8 +33,7 @@ public class ClientMain extends Main {
 	public void start(Stage primStage) throws Exception {
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
-		  Button btnJoin = new
-		  Button("Join"); 
+		  Button btnJoin = new Button("Join"); 
 		  btnJoin.setLayoutY(170); 
 		  btnJoin.setLayoutX(170);
 		  //contentPane.getChildren().add(ip); contentPane.getChildren().add(port);
@@ -53,15 +52,28 @@ public class ClientMain extends Main {
 				din = new DataInputStream(s.getInputStream());
 				dout = new DataOutputStream(s.getOutputStream());
 				//ideally this loop will allow us to continually read inputs from the client
-				while(true) {
+				while(!dead) { 
 					msgout = "";
 					msgin = din.readUTF();
+					String splat;
+					System.out.println("in "+ msgin);
 					if(!msgin.equals("")) {
-						Platform.runLater(() -> msgout = me.fact.makeCommand(me, msgin).execute());
-						dout.writeUTF(msgout);
+						splat = msgin.split("\\|")[3];
+						System.out.println("msgin");
+						Platform.runLater(() -> msgout = this.fact.makeCommand(this, msgin).execute());
+						Platform.runLater(() -> System.out.println("out "+msgout));
+						if(!splat.equals("response")){
+							Platform.runLater(() -> {
+								try {
+									System.out.println("Sent back");
+									dout.writeUTF(msgout);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							});
+						}
 					}
-					System.out.println("cli out "+msgout);
-					System.out.println("cli in "+msgin);
+					
 				}
 			}
 			catch(Exception e) {
@@ -75,8 +87,7 @@ public class ClientMain extends Main {
 	void makeCommands(Space target) {
 		int ex = target.x;
 		int ey = target.y;
-		String msg = (ex+"|"+ey+"|attack");
-		
+		String msg = (ex+"|"+ey+"|attack|init");
 		try {
 			dout.writeUTF(msg);
 		} catch (IOException e) {
@@ -114,6 +125,11 @@ public class ClientMain extends Main {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "ClientMain";
 	}
 
 }

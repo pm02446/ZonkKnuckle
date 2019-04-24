@@ -23,7 +23,7 @@ public class Launcher {
 				break;
 			case 4:
 				//TODO: it's fucked right now I'm gonna fix it -A
-				//Application.launch(MainEnemy.class);
+				Application.launch(MainEnemy.class);
 				System.out.println("it's fucked");
 				break;
 			default:

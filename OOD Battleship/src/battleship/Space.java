@@ -36,9 +36,9 @@ public class Space extends ImageView {
 		this.isHit = true;
 		if(hasShip) {
 			spacePic = hitShipTemp;
-			return (x+"|"+y+"|hit");
+			return (x+"|"+y+"|hit|response");
 		}
-		else return (x+"|"+y+"|miss");
+		else return (x+"|"+y+"|miss|response");
 	}
 	public Space(boolean target){
 		hasShip = false;
