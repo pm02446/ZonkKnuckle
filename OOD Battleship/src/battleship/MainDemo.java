@@ -32,7 +32,8 @@ public class MainDemo extends Main {
 		String msg = (ex+"|"+ey+"|attack");
 		//TODO: Remove wacky demo settings
 		//because this is a weirdo demo, the factory will create the command targeting ourselves
-		me.fact.makeCommand(me, me, msg).execute();		
+		//oh god oh fuck
+		me.fact.makeCommand(me,me.fact.makeCommand(me, msg).execute()).execute();		
 	}
 
 }

@@ -11,9 +11,15 @@ public class HitCommand implements Command {
 		this.yCord = y;
 	}
 	
-	public void execute() {
+	public HitCommand(int x, int y) {
+		this.xCord = x;
+		this.yCord = y;
+	}
+	
+	public String execute() {
 		target.boardFoeState[xCord][yCord].targHit();
 		target.redrawBoards();
+		return null;
 	}
 
 	@Override

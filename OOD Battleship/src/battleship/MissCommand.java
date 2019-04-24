@@ -12,9 +12,10 @@ public class MissCommand implements Command{
 		this.yCord = y;
 	}
 	
-	public void execute() {		
+	public String execute() {		
 	target.boardFoeState[xCord][yCord].targMissed();
 	target.redrawBoards();
+	return null;
 	}
 
 	@Override

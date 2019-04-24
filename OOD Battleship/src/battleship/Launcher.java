@@ -16,13 +16,15 @@ public class Launcher {
 				Application.launch(HostMain.class);
 				break;
 			case 2:
-				System.out.println("Not yet implemented.");
+				Application.launch(ClientMain.class);
 				break;
 			case 3: 
 				Application.launch(MainDemo.class);
 				break;
 			case 4:
-				Application.launch(MainEnemy.class);
+				//TODO: it's fucked right now I'm gonna fix it -A
+				//Application.launch(MainEnemy.class);
+				System.out.println("it's fucked");
 				break;
 			default:
 				System.out.println("what?");

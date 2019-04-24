@@ -35,11 +35,11 @@ public class MainEnemy extends Main{
 		int ex = target.x;
 		int ey = target.y;
 		String msg = (ex+"|"+ey+"|attack");
-		me.fact.makeCommand(me, me, msg).execute(foeBoardPlayerState);		
+		me.fact.makeCommand(me, msg).execute(foeBoardPlayerState);		
 		int ax = (int) (Math.random()*8);
 		int ay = (int) (Math.random()*8);
 		msg = (ax+"|"+ay+"|attack");
-		me.fact.makeCommand(me, me, msg).execute();	
+		me.fact.makeCommand(me, msg).execute();	
 	}
 	
 	public void createShips(){

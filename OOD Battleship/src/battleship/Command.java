@@ -1,7 +1,7 @@
 package battleship;
 
 public interface Command {
-	void execute();
+	String execute();
 	void execute(Space[][] spaces);
 
 }
