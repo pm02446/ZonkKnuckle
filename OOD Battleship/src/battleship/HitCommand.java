@@ -16,4 +16,10 @@ public class HitCommand implements Command {
 		target.redrawBoards();
 	}
 
+	@Override
+	public void execute(Main target) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

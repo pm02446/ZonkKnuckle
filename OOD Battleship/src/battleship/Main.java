@@ -42,7 +42,7 @@ public abstract class Main extends Application{
 		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
 		reinitBoards();
-		redrawBoards();
+		redrawBoards(); 
 		//THEN add listeners to every single one of them
 		//this is the observer pattern here:
 		for(int x=0;x<8;x++) {
@@ -63,18 +63,6 @@ public abstract class Main extends Application{
 			}
 		}
 		//all of that construction is returned here
-		return boardPane;
-	}
-	//method to reduce code reuse on startup
-	public Pane startSetup() {
-		Pane boardPane = new Pane();
-		boardPane.setMinSize(330, 270);
-		boardPane.setMaxSize(330,270);
-		ImageView boardPlayDisp = new ImageView(boardPlayer);
-		ImageView boardFoeDisp = new ImageView(boardFoe);
-		boardFoeDisp.setLayoutX(170);
-		boardPane.getChildren().add(boardPlayDisp);
-		boardPane.getChildren().add(boardFoeDisp);
 		return boardPane;
 	}
 	

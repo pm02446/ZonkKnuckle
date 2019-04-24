@@ -5,6 +5,7 @@ public class ExShip implements Ship {
 	Space origin;
 	Space[] array;
 
+	//Orig is the ship's origin space, arr is the array of spaces the ship is over
 	public ExShip(Space orig, Space[] arr) {
 		this.origin = orig;
 		orig.addShip(this);
