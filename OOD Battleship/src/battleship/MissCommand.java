@@ -12,8 +12,18 @@ public class MissCommand implements Command{
 		this.yCord = y;
 	}
 	
-	public void execute() {		
+	public String execute() {		
 	target.boardFoeState[xCord][yCord].targMissed();
 	target.redrawBoards();
+	System.out.println(target.toString());
+	System.out.println("Miss");
+	return "";
+	}
+
+	@Override
+	public void execute(Space[][] spaces) {
+
+		// TODO Auto-generated method stub
+		
 	}
 }
