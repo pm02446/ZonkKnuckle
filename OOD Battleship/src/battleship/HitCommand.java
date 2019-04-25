@@ -19,8 +19,6 @@ public class HitCommand implements Command {
 	public String execute() {
 		target.boardFoeState[xCord][yCord].targHit();
 		target.redrawBoards();
-		System.out.println(target.toString());
-		System.out.println("Hit");
 		return "";
 	}
 

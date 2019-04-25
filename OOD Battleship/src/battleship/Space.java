@@ -9,6 +9,7 @@ public class Space extends ImageView {
 	static Image hitTemp = new Image("https://i.imgur.com/lbpqlVw.png");
 	static Image shipTemp = new Image("https://i.imgur.com/ESGw5NR.png");
 	static Image hitShipTemp = new Image("https://i.imgur.com/naooKUA.png");
+	String identifier;
 	Image spacePic;
 	int x;
 	int y;
@@ -16,6 +17,9 @@ public class Space extends ImageView {
 	boolean hasShip;
 	boolean isHit;
 	Ship ship;
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
 	public void addShip(Ship ship) {
 		if(!hasShip) {
 			this.ship = ship;
@@ -36,9 +40,9 @@ public class Space extends ImageView {
 		this.isHit = true;
 		if(hasShip) {
 			spacePic = hitShipTemp;
-			return (x+"|"+y+"|hit|response");
+			return (x+"|"+y+"|hit|response|from"+identifier);
 		}
-		else return (x+"|"+y+"|miss|response");
+		else return (x+"|"+y+"|miss|response|from"+identifier);
 	}
 	public Space(boolean target){
 		hasShip = false;

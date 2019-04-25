@@ -71,9 +71,11 @@ public abstract class Main extends Application{
 				boardPlayerState[x][y].setImage(boardPlayerState[x][y].spacePic);
 				boardPlayerState[x][y].setLayoutX(x*20);
 				boardPlayerState[x][y].setLayoutY(y*20);
+				boardPlayerState[x][y].setIdentifier(this.toString());
 				boardFoeState[x][y].setImage(boardFoeState[x][y].spacePic);
 				boardFoeState[x][y].setLayoutX(170+(x*20));
 				boardFoeState[x][y].setLayoutY(y*20);
+				boardFoeState[x][y].setIdentifier(this.toString());
 			}
 		}
 	}
