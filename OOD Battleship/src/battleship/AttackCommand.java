@@ -14,9 +14,6 @@ public class AttackCommand implements Command{
 	public String execute() {
 		String result = sender.boardPlayerState[xCord][yCord].hit();
 		sender.redrawBoards();
-		sender.fact.makeCommand(sender, result).execute();
-		System.out.println(sender.toString());
-		System.out.println("attack");
 		return result;
 		
 	}
