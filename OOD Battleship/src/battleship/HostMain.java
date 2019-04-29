@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -101,6 +102,7 @@ public class HostMain extends Main {
 		String msg = (ex+"|"+ey+"|attack|init|fromHostmain");
 		try {
 			dout.writeUTF(msg);
+			setTurn(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
