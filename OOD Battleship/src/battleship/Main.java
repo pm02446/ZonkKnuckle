@@ -12,7 +12,7 @@ import javafx.stage.*;
 
 
 public abstract class Main extends Application{
-	Main me = this;
+	//Main me = this;
 	boolean myTurn = true;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
 	Image boardPlayer = new Image("https://i.imgur.com/UIOEQRN.png");
@@ -40,7 +40,7 @@ public abstract class Main extends Application{
 		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
 		reinitBoards();
-		redrawBoards();
+		redrawBoards(); 
 		//THEN add listeners to every single one of them
 		//this is the observer pattern here:
 		for(int x=0;x<8;x++) {
@@ -63,18 +63,6 @@ public abstract class Main extends Application{
 		//all of that construction is returned here
 		return boardPane;
 	}
-	//method to reduce code reuse on startup
-	public Pane startSetup() {
-		Pane boardPane = new Pane();
-		boardPane.setMinSize(330, 270);
-		boardPane.setMaxSize(330,270);
-		ImageView boardPlayDisp = new ImageView(boardPlayer);
-		ImageView boardFoeDisp = new ImageView(boardFoe);
-		boardFoeDisp.setLayoutX(170);
-		boardPane.getChildren().add(boardPlayDisp);
-		boardPane.getChildren().add(boardFoeDisp);
-		return boardPane;
-	}
 	
 	//method to update ImageViews based on state of Space arrays
 	public void redrawBoards() {
@@ -83,9 +71,11 @@ public abstract class Main extends Application{
 				boardPlayerState[x][y].setImage(boardPlayerState[x][y].spacePic);
 				boardPlayerState[x][y].setLayoutX(x*20);
 				boardPlayerState[x][y].setLayoutY(y*20);
+				boardPlayerState[x][y].setIdentifier(this.toString());
 				boardFoeState[x][y].setImage(boardFoeState[x][y].spacePic);
 				boardFoeState[x][y].setLayoutX(170+(x*20));
 				boardFoeState[x][y].setLayoutY(y*20);
+				boardFoeState[x][y].setIdentifier(this.toString());
 			}
 		}
 	}
