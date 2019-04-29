@@ -55,7 +55,7 @@ public abstract class Main extends Application{
 				boardFoeState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
-						//only make a command if it is your turn when you click the space
+						//only make a command if it is your turn when you click the space [1]
 						if(myTurn) {
 							makeCommands(source);
 						}
@@ -103,7 +103,7 @@ public abstract class Main extends Application{
 	//abstract method called by target space listeners
 	abstract void makeCommands(Space target);
 	
-	//method to set the text of the label at the top
+	//method to set the text of the label at the top as well as the boolean that allows/prevents turns to be taken (see totalInit [1])
 	public void setTurn(boolean myTurn) {
 		this.myTurn = myTurn;
 		if(myTurn) {
