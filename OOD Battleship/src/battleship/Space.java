@@ -20,6 +20,10 @@ public class Space extends ImageView {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+	
+	public boolean isHit() {
+		return isHit;
+	}
 	public void addShip(Ship ship) {
 		if(!hasShip) {
 			this.ship = ship;

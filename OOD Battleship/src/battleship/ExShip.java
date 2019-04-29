@@ -8,6 +8,7 @@ public class ExShip implements Ship {
 	//Orig is the ship's origin space, arr is the array of spaces the ship is over
 	public ExShip(Space orig, Space[] arr) {
 		this.origin = orig;
+		
 		orig.addShip(this);
 		this.array = arr;
 	}
@@ -27,8 +28,8 @@ public class ExShip implements Ship {
 	}
 	@Override
 	public boolean isDestroyed() {
-		boolean dead = true;
-		for(Space s:array) {
+		boolean dead = true; //assumes the ship is dead
+		for(Space s:array) { //iterates over all the spaces
 			if(!s.isHit) {
 				dead=false;
 			}

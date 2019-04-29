@@ -1,5 +1,7 @@
 package battleship;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -16,12 +18,14 @@ import javafx.stage.*;
 public abstract class Main extends Application{
 	//Main me = this;
 	boolean myTurn = true;
+	int shipsPlaced = 0;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
 	Image boardPlayer = new Image("https://i.imgur.com/UIOEQRN.png");
 	Image boardFoe = new Image("https://i.imgur.com/UIOEQRN.png");
 	Space[][] boardPlayerState = new Space[8][8];
 	Space[][] boardFoeState = new Space[8][8];
 	Label turnDisp = new Label();
+	ArrayList<Ship> ships;
 	
 	public static void main(String[] args) {
 		launch();
