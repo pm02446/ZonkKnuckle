@@ -19,7 +19,7 @@ public class HitCommand implements Command {
 	public String execute() {
 		target.boardFoeState[xCord][yCord].targHit();
 		target.redrawBoards();
-		return null;
+		return "";
 	}
 
 	@Override

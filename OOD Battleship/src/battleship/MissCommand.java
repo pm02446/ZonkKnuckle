@@ -15,7 +15,7 @@ public class MissCommand implements Command{
 	public String execute() {		
 	target.boardFoeState[xCord][yCord].targMissed();
 	target.redrawBoards();
-	return null;
+	return "";
 	}
 
 	@Override

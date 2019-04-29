@@ -12,6 +12,7 @@ public class MainEnemy extends Main{
 
 	Space[][] foeBoardPlayerState = new Space[8][8];
 	Space[][] foeBoardFoeState = new Space[8][8];
+	MainEnemy me = new MainEnemy();
 	
 	public void start(Stage primStage) throws Exception {
 		Pane boardPane = totalInit();
@@ -63,5 +64,10 @@ public class MainEnemy extends Main{
 			boardPlayerState[x][y].addShip(new ExShip(boardPlayerState[x][y], new Space[]{boardPlayerState[x][y]}));
 
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "MainEnemy";
 	}
 }
