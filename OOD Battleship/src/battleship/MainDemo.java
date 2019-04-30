@@ -35,6 +35,7 @@ public class MainDemo extends Main {
 		//because this is a weirdo demo, the factory will create the command targeting ourselves
 		//oh god oh fuck
 		me.fact.makeCommand(me,me.fact.makeCommand(me, msg).execute()).execute();		
+		//this is the worst line of code I ever wrote --A
 	}
 
 
