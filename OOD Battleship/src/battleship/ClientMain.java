@@ -32,6 +32,7 @@ public class ClientMain extends Main {
 		primStage.show();
 		//TODO: Remove this hardcoded ship
 		boardPlayerState[4][6].addShip(new ExShip(boardPlayerState[4][6],  new Space[]{boardPlayerState[4][6]}));
+
 		redrawBoards();
 		
 		new Thread(() -> {
@@ -95,6 +96,7 @@ public class ClientMain extends Main {
 		int ex = target.x;
 		int ey = target.y;
 		String msg = (ex+"|"+ey+"|attack|init|fromClientmain");
+		
 		try {
 			dout.writeUTF(msg);
 			setTurn(false);
@@ -108,10 +110,54 @@ public class ClientMain extends Main {
 		return "Clientmain";
 	}
 
+	//Placement of 5 ships only on non occupied spaces
 	@Override
 	void shipPlacement(Space selection) {
-		// TODO Auto-generated method stub
-		
+
+		int ex = selection.x;
+		int ey = selection.y;
+		switch (shipsPlaced) {
+		case 0:
+			if (!selection.hasShip) {
+				boardPlayerState[ex][ey]
+						.addShip(new ExShip(boardPlayerState[ex][ey], new Space[] { boardPlayerState[ex][ey] }));
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 1:
+			if (!selection.hasShip) {
+				boardPlayerState[ex][ey]
+						.addShip(new ExShip(boardPlayerState[ex][ey], new Space[] { boardPlayerState[ex][ey] }));
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 2:
+			if (!selection.hasShip) {
+				boardPlayerState[ex][ey]
+						.addShip(new ExShip(boardPlayerState[ex][ey], new Space[] { boardPlayerState[ex][ey] }));
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 3:
+			if (!selection.hasShip) {
+				boardPlayerState[ex][ey]
+						.addShip(new ExShip(boardPlayerState[ex][ey], new Space[] { boardPlayerState[ex][ey] }));
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		default:
+			break;
+
+		}
+
 	}
 
 }
