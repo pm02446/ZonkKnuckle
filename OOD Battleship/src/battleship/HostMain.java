@@ -25,7 +25,7 @@ public class HostMain extends Main {
 	boolean dead = false;
 	//TODO: remove temp command
 	Command temp;
-
+	
 	@Override
 	public void start(Stage primStage) throws Exception {
 		//UI Stuff
@@ -34,7 +34,9 @@ public class HostMain extends Main {
 		primStage.setScene(boardScene);
 		primStage.show();
 		//TODO: REMOVE this hardcoded ship
-		boardPlayerState[2][3].addShip(new ExShip(boardPlayerState[2][3],  new Space[]{boardPlayerState[2][3]}));
+		ExShip hardShip = new ExShip(boardPlayerState[2][3],  new Space[]{boardPlayerState[2][3]});
+		boardPlayerState[2][3].addShip(hardShip);
+		ships.add(hardShip);
 		redrawBoards();
 		//okay here we go again
 		//makes a background thread to read from the socket
