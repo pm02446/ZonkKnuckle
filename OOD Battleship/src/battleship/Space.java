@@ -16,6 +16,7 @@ public class Space extends ImageView {
 	boolean isTarget;
 	boolean hasShip;
 	boolean isHit;
+	boolean chosen;
 	Ship ship;
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
