@@ -108,4 +108,10 @@ public class ClientMain extends Main {
 		return "Clientmain";
 	}
 
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

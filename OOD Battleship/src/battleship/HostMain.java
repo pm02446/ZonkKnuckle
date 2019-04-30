@@ -113,4 +113,10 @@ public class HostMain extends Main {
 		return "Hostmain";
 	}
 
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

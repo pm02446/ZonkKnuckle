@@ -25,6 +25,7 @@ public class MainEnemy extends Main{
 				foeBoardFoeState[x][y] = new Space(true,x, y);
 			}
 		}
+		//hello
 		
 		primStage.show();
 		createShips();		
@@ -69,5 +70,11 @@ public class MainEnemy extends Main{
 	@Override
 	public String toString() {
 		return "MainEnemy";
+	}
+
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
 	}
 }
