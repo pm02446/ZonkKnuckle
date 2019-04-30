@@ -1,8 +1,12 @@
 package battleship;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,13 +16,16 @@ import javafx.stage.*;
 
 
 public abstract class Main extends Application{
-	Main me = this;
+	//Main me = this;
 	boolean myTurn = true;
+	int shipsPlaced = 0;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
 	Image boardPlayer = new Image("https://i.imgur.com/UIOEQRN.png");
 	Image boardFoe = new Image("https://i.imgur.com/UIOEQRN.png");
 	Space[][] boardPlayerState = new Space[8][8];
 	Space[][] boardFoeState = new Space[8][8];
+	Label turnDisp = new Label();
+	ArrayList<Ship> ships;
 	
 	public static void main(String[] args) {
 		launch();
@@ -32,15 +39,19 @@ public abstract class Main extends Application{
 		Pane boardPane = new Pane();
 		boardPane.setMinSize(330, 270);
 		boardPane.setMaxSize(330,270);
+		turnDisp = new Label("Welcome to battleship!");
 		ImageView boardPlayDisp = new ImageView(boardPlayer);
 		ImageView boardFoeDisp = new ImageView(boardFoe);
+		boardPlayDisp.setLayoutY(20);
 		boardFoeDisp.setLayoutX(170);
+		boardFoeDisp.setLayoutY(20);
+		boardPane.getChildren().add(turnDisp);
 		boardPane.getChildren().add(boardPlayDisp);
 		boardPane.getChildren().add(boardFoeDisp);
 		//actually make Spaces (which extend imageviews) for each space
 		//then initialize space arrays and draw based on them
 		reinitBoards();
-		redrawBoards();
+		redrawBoards(); 
 		//THEN add listeners to every single one of them
 		//this is the observer pattern here:
 		for(int x=0;x<8;x++) {
@@ -48,9 +59,29 @@ public abstract class Main extends Application{
 				boardFoeState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
-						makeCommands(source);						
+						//only make a command if it is your turn when you click the space [1]
+						if(myTurn && !source.chosen) {
+							makeCommands(source);
+							source.chosen = true;
+						}
 					}
 				});
+				
+			}	
+		}
+		for(int x=0;x<8;x++) {
+			for(int y=0;y<8;y++) {
+				boardPlayerState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
+					public void handle(MouseEvent event) {
+						Space source = (Space)event.getSource();
+						//only make a command if it is your turn when you click the space [1]
+						if(myTurn && !source.chosen) {
+							// abastgrtack
+							shipPlacement(source);
+						}
+					}
+				});
+				
 			}	
 		}
 		//add all those pictures to the pane
@@ -63,18 +94,6 @@ public abstract class Main extends Application{
 		//all of that construction is returned here
 		return boardPane;
 	}
-	//method to reduce code reuse on startup
-	public Pane startSetup() {
-		Pane boardPane = new Pane();
-		boardPane.setMinSize(330, 270);
-		boardPane.setMaxSize(330,270);
-		ImageView boardPlayDisp = new ImageView(boardPlayer);
-		ImageView boardFoeDisp = new ImageView(boardFoe);
-		boardFoeDisp.setLayoutX(170);
-		boardPane.getChildren().add(boardPlayDisp);
-		boardPane.getChildren().add(boardFoeDisp);
-		return boardPane;
-	}
 	
 	//method to update ImageViews based on state of Space arrays
 	public void redrawBoards() {
@@ -82,13 +101,17 @@ public abstract class Main extends Application{
 			for(int y=0;y<8;y++) {
 				boardPlayerState[x][y].setImage(boardPlayerState[x][y].spacePic);
 				boardPlayerState[x][y].setLayoutX(x*20);
-				boardPlayerState[x][y].setLayoutY(y*20);
+				boardPlayerState[x][y].setLayoutY(20+(y*20));
+				boardPlayerState[x][y].setIdentifier(this.toString());
 				boardFoeState[x][y].setImage(boardFoeState[x][y].spacePic);
 				boardFoeState[x][y].setLayoutX(170+(x*20));
-				boardFoeState[x][y].setLayoutY(y*20);
+				boardFoeState[x][y].setLayoutY(20+(y*20));
+				boardFoeState[x][y].setIdentifier(this.toString());
 			}
 		}
 	}
+	//this is so we can select a new space to place ships
+	abstract void shipPlacement (Space selection);	
 	
 	//initialize the board state Space arrays to be blank on both sides
 	public void reinitBoards() {
@@ -102,6 +125,27 @@ public abstract class Main extends Application{
 	
 	//abstract method called by target space listeners
 	abstract void makeCommands(Space target);
+	
+	//method to set the text of the label at the top as well as the boolean that allows/prevents turns to be taken (see totalInit [1])
+	public void setTurn(boolean myTurn) {
+		this.myTurn = myTurn;
+		if(myTurn) {
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+					turnDisp.setText("Your turn!");
+			    }
+			});
+		}
+		else {
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+					turnDisp.setText("Waiting for your turn...");
+			    }
+			});
+		}
+	}
 
 
 }

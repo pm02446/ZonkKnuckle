@@ -12,6 +12,7 @@ public class MainEnemy extends Main{
 
 	Space[][] foeBoardPlayerState = new Space[8][8];
 	Space[][] foeBoardFoeState = new Space[8][8];
+	MainEnemy me = new MainEnemy();
 	
 	public void start(Stage primStage) throws Exception {
 		Pane boardPane = totalInit();
@@ -24,6 +25,7 @@ public class MainEnemy extends Main{
 				foeBoardFoeState[x][y] = new Space(true,x, y);
 			}
 		}
+		//hello
 		
 		primStage.show();
 		createShips();		
@@ -35,11 +37,11 @@ public class MainEnemy extends Main{
 		int ex = target.x;
 		int ey = target.y;
 		String msg = (ex+"|"+ey+"|attack");
-		me.fact.makeCommand(me, me, msg).execute(foeBoardPlayerState);		
+		me.fact.makeCommand(me, msg).execute(foeBoardPlayerState);		
 		int ax = (int) (Math.random()*8);
 		int ay = (int) (Math.random()*8);
 		msg = (ax+"|"+ay+"|attack");
-		me.fact.makeCommand(me, me, msg).execute();	
+		me.fact.makeCommand(me, msg).execute();	
 	}
 	
 	public void createShips(){
@@ -63,5 +65,16 @@ public class MainEnemy extends Main{
 			boardPlayerState[x][y].addShip(new ExShip(boardPlayerState[x][y], new Space[]{boardPlayerState[x][y]}));
 
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "MainEnemy";
+	}
+
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
 	}
 }

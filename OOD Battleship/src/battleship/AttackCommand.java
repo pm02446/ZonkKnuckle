@@ -1,26 +1,27 @@
 package battleship;
 
 public class AttackCommand implements Command{
+	Main weirdoDemo;
 	Main target;
-	Main sender;
 	int xCord;
 	int yCord;
 	
-	public AttackCommand(Main target, Main sender, int x, int y) {
+	public AttackCommand(Main target, int x, int y) {
 		this.target = target;
-		this.sender = sender;
 		this.xCord = x;
 		this.yCord = y;
 	}
-	
-	public void execute() {
+	public String execute() {
 		String result = target.boardPlayerState[xCord][yCord].hit();
+		target.setTurn(true);
 		target.redrawBoards();
-		sender.fact.makeCommand(sender, target, result).execute();
+		return result;
+		
 	}
 	public void execute(Space[][] spaces) {
 		String result = spaces[xCord][yCord].hit();
-		target.redrawBoards();
-		sender.fact.makeCommand(sender, target, result).execute();
+		weirdoDemo.redrawBoards();
+		target.fact.makeCommand(weirdoDemo, result).execute();
 	}
+
 }
