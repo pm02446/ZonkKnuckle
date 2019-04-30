@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -16,6 +17,7 @@ public class ClientMain extends Main {
 	boolean dead = false;
 	String msgin = "";
 	String msgout = "X|X|error";
+	boolean myTurn = false;
 	
 	public static void main(String[] args0) {
 		launch();
@@ -95,6 +97,7 @@ public class ClientMain extends Main {
 		String msg = (ex+"|"+ey+"|attack|init|fromClientmain");
 		try {
 			dout.writeUTF(msg);
+			setTurn(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
