@@ -43,4 +43,11 @@ public class MainDemo extends Main {
 		return "MainDemo";
 	}
 
+
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

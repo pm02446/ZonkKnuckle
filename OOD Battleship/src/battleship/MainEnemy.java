@@ -70,4 +70,10 @@ public class MainEnemy extends Main{
 	public String toString() {
 		return "MainEnemy";
 	}
+
+	@Override
+	void shipPlacement(Space selection) {
+		// TODO Auto-generated method stub
+		
+	}
 }
