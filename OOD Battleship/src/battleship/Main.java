@@ -65,6 +65,22 @@ public abstract class Main extends Application{
 						}
 					}
 				});
+				
+			}	
+		}
+		for(int x=0;x<8;x++) {
+			for(int y=0;y<8;y++) {
+				boardPlayerState[x][y].setOnMouseClicked(new EventHandler<MouseEvent>(){
+					public void handle(MouseEvent event) {
+						Space source = (Space)event.getSource();
+						//only make a command if it is your turn when you click the space [1]
+						if(myTurn) {
+							// abastgrtack
+							shipPlacement(source);
+						}
+					}
+				});
+				
 			}	
 		}
 		//add all those pictures to the pane
@@ -93,6 +109,8 @@ public abstract class Main extends Application{
 			}
 		}
 	}
+	//this is so we can select a new space to place ships
+	abstract void shipPlacement (Space selection);	
 	
 	//initialize the board state Space arrays to be blank on both sides
 	public void reinitBoards() {
