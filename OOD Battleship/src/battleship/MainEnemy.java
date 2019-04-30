@@ -25,6 +25,7 @@ public class MainEnemy extends Main{
 				foeBoardFoeState[x][y] = new Space(true,x, y);
 			}
 		}
+		//hello
 		
 		primStage.show();
 		createShips();		
