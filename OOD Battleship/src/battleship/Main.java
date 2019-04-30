@@ -25,7 +25,7 @@ public abstract class Main extends Application{
 	Space[][] boardPlayerState = new Space[8][8];
 	Space[][] boardFoeState = new Space[8][8];
 	Label turnDisp = new Label();
-	ArrayList<Ship> ships;
+	ArrayList<Ship> ships = new ArrayList<Ship>();
 	
 	public static void main(String[] args) {
 		launch();
@@ -76,7 +76,7 @@ public abstract class Main extends Application{
 						Space source = (Space)event.getSource();
 						//only make a command if it is your turn when you click the space [1]
 						if(myTurn && !source.chosen) {
-							// abastgrtack
+							// abastgrtack RIP Pedro, he had a heart attack writing this line
 							shipPlacement(source);
 						}
 					}
@@ -145,6 +145,10 @@ public abstract class Main extends Application{
 			    }
 			});
 		}
+	}
+	//this method sets the label to a string
+	public void setLabel(String stuff) {
+		turnDisp.setText(stuff);
 	}
 
 
