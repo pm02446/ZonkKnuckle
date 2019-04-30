@@ -60,8 +60,9 @@ public abstract class Main extends Application{
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
 						//only make a command if it is your turn when you click the space [1]
-						if(myTurn) {
+						if(myTurn && !source.chosen) {
 							makeCommands(source);
+							source.chosen = true;
 						}
 					}
 				});
@@ -74,7 +75,7 @@ public abstract class Main extends Application{
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
 						//only make a command if it is your turn when you click the space [1]
-						if(myTurn) {
+						if(myTurn && !source.chosen) {
 							// abastgrtack
 							shipPlacement(source);
 						}
