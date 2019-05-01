@@ -5,6 +5,9 @@ public class Cruiser implements Ship{
 	private Space[] spaces;
 	public Cruiser(Space[] spaces){
 		this.spaces = spaces;
+		for(Space s:spaces) {
+			s.addShip(this);
+		}
 	}
 
 	@Override

@@ -69,10 +69,12 @@ public class HostMain extends Main {
 	public void stop() {
 		try {
 			dead = true;
-			ss.close();
-			din.close();
-			dout.close();
-			s.close();
+			if(ss != null) {
+				ss.close();
+				din.close();
+				dout.close();
+				s.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -95,80 +97,6 @@ public class HostMain extends Main {
 	public String toString() {
 		return "Hostmain";
 	}
-
-	//Placement of 5 ships only on non occupied spaces
-	@Override
-	void shipPlacement(Space selection) {
-		int ex = selection.x;
-		int ey = selection.y;
-		Space[] spaces;
-		Space origin = boardPlayerState[ex][ey];
-		Ship newShip;
-		switch (shipsPlaced) {
-		case 0:
-			if (!selection.hasShip && ex<=5) {
-				spaces = new Space[5];
-				for(int i = 0;i<=4;i++) {
-					spaces[i] = boardPlayerState[ex+i][ey];
-				}
-				if(allEmpty(spaces)) {
-					newShip = new Carrier(spaces); 
-					ships.add(newShip);
-					redrawBoards();
-					shipsPlaced++;
-				}
-			}
-			break;
-
-		case 1:
-			if (!selection.hasShip && ey<=6) {
-				spaces = new Space[4];
-				for(int i = 0;i<=3;i++) {
-					spaces[i] = boardPlayerState[ex][ey+i];
-				}
-				if(allEmpty(spaces)) {
-					newShip = new Battleship(spaces); 
-					ships.add(newShip);
-					redrawBoards();
-					shipsPlaced++;
-				}
-			}
-			break;
-
-		case 2:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 3:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-		case 4:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				setTurn(true);
-				shipsPlaced++;
-			}
-			break;
-
-		default:
-			break;
-
-		}
-
-	}
-	
 
 	//this is the socket handler thread- it continually listens to the socket in the background and uses the results to make commands
 	public void startHandler() {
@@ -215,6 +143,11 @@ public class HostMain extends Main {
 				e.printStackTrace();
 			}
 		}).start();
+	}
+
+	@Override
+	void donePlacing() {
+		setTurn(true);
 	}
 
 }

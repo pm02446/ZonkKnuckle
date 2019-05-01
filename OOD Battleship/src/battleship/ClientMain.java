@@ -145,65 +145,9 @@ public class ClientMain extends Main {
 		return "Clientmain";
 	}
 
-	//Placement of 5 ships only on non occupied spaces
 	@Override
-	void shipPlacement(Space selection) {
-		int ex = selection.x;
-		int ey = selection.y;
-		Space[] spaces;
-		Space origin = boardPlayerState[ex][ey];
-		ExShip newShip;
-		switch (shipsPlaced) {
-		case 0:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 1:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 2:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 3:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-		case 4:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				setTurn(false);
-				shipsPlaced++;
-			}
-			break;
-
-		default:
-			break;
-
-		}
-
+	void donePlacing() {
+		setTurn(false);
 	}
 
 }

@@ -6,6 +6,9 @@ public class Submarine implements Ship{
 	private Space[] spaces;
 	public Submarine(Space[] spaces){
 		this.spaces = spaces;
+		for(Space s:spaces) {
+			s.addShip(this);
+		}
 	}
 
 	@Override

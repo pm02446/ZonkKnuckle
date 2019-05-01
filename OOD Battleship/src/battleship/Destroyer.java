@@ -4,6 +4,9 @@ public class Destroyer implements Ship {
 	private Space[] spaces;
 	public Destroyer(Space[] spaces){
 		this.spaces = spaces;
+		for(Space s:spaces) {
+			s.addShip(this);
+		}
 	}
 
 	@Override
