@@ -35,15 +35,16 @@ public class HostMain extends Main {
 	@Override
 	public void start(Stage primStage) throws Exception {
 		//myTurn = false;
-		//UI Stuff
+		//UI Stuff (host=specific)
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
 		Label lblPort = new Label("Port");
-		lblPort.setLayoutX(160);
-		lblPort.setLayoutY(360);
+		//lblPort.setLayoutX(160);
+		lblPort.setLayoutY(380);
 		TextField txtPort = new TextField();
 		txtPort.setLayoutY(355);
 		Button btnHost = new Button("Host");
+		btnHost.setLayoutY(400);
 		btnHost.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -60,7 +61,6 @@ public class HostMain extends Main {
 		contentPane.getChildren().add(lblPort);
 		contentPane.getChildren().add(txtPort);
 		contentPane.getChildren().add(btnHost);
-		btnHost.setLayoutY(385);
 		primStage.setScene(boardScene);
 		primStage.show();
 	}

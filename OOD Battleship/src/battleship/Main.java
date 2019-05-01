@@ -38,8 +38,8 @@ public abstract class Main extends Application{
 	public Pane totalInit() {
 		//make the pane that serves as the foundation for the whole thing
 		Pane boardPane = new Pane();
-		boardPane.setMinSize(700, 500);
-		boardPane.setMaxSize(700, 500);
+		boardPane.setMinSize(650, 430);
+		boardPane.setMaxSize(650, 430);
 		turnDisp = new Label("Welcome to battleship!");
 		ImageView boardPlayDisp = new ImageView(boardPlayer);
 		ImageView boardFoeDisp = new ImageView(boardFoe);

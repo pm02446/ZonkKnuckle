@@ -37,14 +37,18 @@ public class ClientMain extends Main {
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
 		Label lblPort = new Label("Port");
-		lblPort.setLayoutX(160);
-		lblPort.setLayoutY(360);
+		lblPort.setLayoutY(380);
 		TextField txtPort = new TextField();
+		txtPort.setLayoutY(355);
+		Label lblIP = new Label("IP");
+		lblIP.setLayoutY(380);
+		lblIP.setLayoutX(200);
 		TextField txtIP = new TextField();
 		txtIP.setLayoutX(200);
 		txtIP.setLayoutY(355);
-		txtPort.setLayoutY(355);
+
 		Button btnJoin = new Button("Join");
+		btnJoin.setLayoutY(400);
 		btnJoin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -61,9 +65,9 @@ public class ClientMain extends Main {
 		
 		contentPane.getChildren().add(lblPort);
 		contentPane.getChildren().add(txtIP);
+		contentPane.getChildren().add(lblIP);
 		contentPane.getChildren().add(txtPort);
 		contentPane.getChildren().add(btnJoin);
-		btnJoin.setLayoutY(385);
 		primStage.setScene(boardScene);
 		primStage.show();
 	}
