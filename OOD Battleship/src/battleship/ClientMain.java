@@ -6,7 +6,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -17,26 +22,57 @@ public class ClientMain extends Main {
 	boolean dead = false;
 	String msgin = "";
 	String msgout = "X|X|error";
-	boolean myTurn = false;
-	
+	int port;
+	String ipAddress;
+
 	public static void main(String[] args0) {
 		launch();
 	}
-
+	//rebererberbe
+	
 	@Override
 	public void start(Stage primStage) throws Exception {
+		//myTurn = false;
 		//UI stuff
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
+		Label lblPort = new Label("Port");
+		lblPort.setLayoutX(160);
+		lblPort.setLayoutY(360);
+		TextField txtPort = new TextField();
+		TextField txtIP = new TextField();
+		txtIP.setLayoutX(200);
+		txtIP.setLayoutY(355);
+		txtPort.setLayoutY(355);
+		Button btnJoin = new Button("Join");
+		btnJoin.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						port = Integer.parseInt(txtPort.getText());
+						ipAddress = txtIP.getText();
+						startHandler();
+					}
+				});
+			}
+		});
+		
+		contentPane.getChildren().add(lblPort);
+		contentPane.getChildren().add(txtIP);
+		contentPane.getChildren().add(txtPort);
+		contentPane.getChildren().add(btnJoin);
+		btnJoin.setLayoutY(385);
 		primStage.setScene(boardScene);
 		primStage.show();
-		//TODO: Remove this hardcoded ship
-		boardPlayerState[4][6].addShip(new ExShip(boardPlayerState[4][6],  new Space[]{boardPlayerState[4][6]}));
-		redrawBoards();
-		
+	}
+	
+	//this method creates and starts the client handler thread- it continually listens to the socket in the background and uses the results to make commands
+	private void startHandler() {
 		new Thread(() -> {
 			try {
-				s = new Socket("127.0.0.1",1201);
+				s = new Socket(ipAddress,port);
 				din = new DataInputStream(s.getInputStream());
 				dout = new DataOutputStream(s.getOutputStream());
 				//ideally this loop will allow us to continually read inputs from the server
@@ -78,7 +114,7 @@ public class ClientMain extends Main {
 			}
 		}).start();
 	}
-
+	
 	public void stop() {
 		try {
 			dead = true;
@@ -95,6 +131,7 @@ public class ClientMain extends Main {
 		int ex = target.x;
 		int ey = target.y;
 		String msg = (ex+"|"+ey+"|attack|init|fromClientmain");
+		
 		try {
 			dout.writeUTF(msg);
 			setTurn(false);
@@ -108,10 +145,57 @@ public class ClientMain extends Main {
 		return "Clientmain";
 	}
 
+	//Placement of 5 ships only on non occupied spaces
 	@Override
 	void shipPlacement(Space selection) {
-		// TODO Auto-generated method stub
-		
+		int ex = selection.x;
+		int ey = selection.y;
+		Space[] spaces;
+		Space origin = boardPlayerState[ex][ey];
+		ExShip newShip;
+		switch (shipsPlaced) {
+		case 0:
+			if (!selection.hasShip) {
+				newShip = new ExShip(origin,new Space[] {origin}); 
+				ships.add(newShip);
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 1:
+			if (!selection.hasShip) {
+				newShip = new ExShip(origin,new Space[] {origin}); 
+				ships.add(newShip);
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 2:
+			if (!selection.hasShip) {
+				newShip = new ExShip(origin,new Space[] {origin}); 
+				ships.add(newShip);
+				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+
+		case 3:
+			if (!selection.hasShip) {
+				newShip = new ExShip(origin,new Space[] {origin}); 
+				ships.add(newShip);
+				redrawBoards();
+				setTurn(false);
+				shipsPlaced++;
+			}
+			break;
+
+		default:
+			break;
+
+		}
+
 	}
 
 }
