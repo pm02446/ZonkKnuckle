@@ -186,6 +186,14 @@ public class ClientMain extends Main {
 				newShip = new ExShip(origin,new Space[] {origin}); 
 				ships.add(newShip);
 				redrawBoards();
+				shipsPlaced++;
+			}
+			break;
+		case 4:
+			if (!selection.hasShip) {
+				newShip = new ExShip(origin,new Space[] {origin}); 
+				ships.add(newShip);
+				redrawBoards();
 				setTurn(false);
 				shipsPlaced++;
 			}
