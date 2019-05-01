@@ -11,6 +11,7 @@ public class MainDemo extends Main {
 	MainDemo me = new MainDemo();
 	@Override
 	public void start(Stage primStage) throws Exception {
+		myTurn = true;
 		//initialize it all
 		Pane boardPane = totalInit();
 		//TODO: Remove demo settings

@@ -39,7 +39,7 @@ public class Space extends ImageView {
 		spacePic = hitTemp;
 	}
 	public boolean hasShip() {
-		return this.hasShip();
+		return this.hasShip;
 	}
 	public String hit() {
 		this.isHit = true;

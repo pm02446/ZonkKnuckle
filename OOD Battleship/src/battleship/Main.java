@@ -17,7 +17,7 @@ import javafx.stage.*;
 
 public abstract class Main extends Application{
 	//Main me = this;
-	boolean myTurn = true;
+	boolean myTurn = false;
 	int shipsPlaced = 0;
 	ReceivedCommandFactory fact = new ReceivedCommandFactory();
 	Image boardPlayer = new Image("https://i.imgur.com/WCVmiVJ.png");
@@ -77,7 +77,7 @@ public abstract class Main extends Application{
 					public void handle(MouseEvent event) {
 						Space source = (Space)event.getSource();
 						//only make a command if it is your turn when you click the space [1]
-						if(myTurn && !source.chosen) {
+						if(!source.chosen) {
 							// abastgrtack RIP Pedro, he had a heart attack writing this line
 							shipPlacement(source);
 						}
@@ -163,6 +163,14 @@ public abstract class Main extends Application{
 			if(!s.isDestroyed()) {
 				return false;
 			}
+		}
+		return true;
+	}
+	
+	//returns true if all the spaces do not have a ship
+	public boolean allEmpty(Space[] spaces) {
+		for(Space s:spaces) {
+			if(s.hasShip()) return false;
 		}
 		return true;
 	}

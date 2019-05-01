@@ -103,23 +103,35 @@ public class HostMain extends Main {
 		int ey = selection.y;
 		Space[] spaces;
 		Space origin = boardPlayerState[ex][ey];
-		ExShip newShip;
+		Ship newShip;
 		switch (shipsPlaced) {
 		case 0:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
+			if (!selection.hasShip && ex<=5) {
+				spaces = new Space[5];
+				for(int i = 0;i<=4;i++) {
+					spaces[i] = boardPlayerState[ex+i][ey];
+				}
+				if(allEmpty(spaces)) {
+					newShip = new Carrier(spaces); 
+					ships.add(newShip);
+					redrawBoards();
+					shipsPlaced++;
+				}
 			}
 			break;
 
 		case 1:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
+			if (!selection.hasShip && ey<=6) {
+				spaces = new Space[4];
+				for(int i = 0;i<=3;i++) {
+					spaces[i] = boardPlayerState[ex][ey+i];
+				}
+				if(allEmpty(spaces)) {
+					newShip = new Battleship(spaces); 
+					ships.add(newShip);
+					redrawBoards();
+					shipsPlaced++;
+				}
 			}
 			break;
 
