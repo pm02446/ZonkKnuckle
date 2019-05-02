@@ -1,9 +1,10 @@
 package battleship;
 
-public class Cruiser implements Ship{
+
+public class Submarine implements Ship{
 
 	private Space[] spaces;
-	public Cruiser(Space[] spaces){
+	public Submarine(Space[] spaces){
 		this.spaces = spaces;
 		for(Space s:spaces) {
 			s.addShip(this);
@@ -20,6 +21,8 @@ public class Cruiser implements Ship{
 		
 		return spaces;
 	}
+
+	
 
 	@Override
 	public boolean isDestroyed() {

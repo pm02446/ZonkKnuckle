@@ -4,6 +4,9 @@ public class Carrier implements Ship {
 	private Space[] spaces;
 	public Carrier(Space[] spaces){
 		this.spaces = spaces;
+		for(Space s:spaces) {
+			s.addShip(this);
+		}
 	}
 
 	@Override
@@ -13,11 +16,8 @@ public class Carrier implements Ship {
 
 	@Override
 	public Space[] getSpaces() {
-		
 		return spaces;
-	}
-
-	
+	}	
 
 	@Override
 	public boolean isDestroyed() {

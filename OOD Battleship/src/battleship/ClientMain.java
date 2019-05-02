@@ -25,26 +25,29 @@ public class ClientMain extends Main {
 	int port;
 	String ipAddress;
 
+	//Launches the application when run
 	public static void main(String[] args0) {
 		launch();
 	}
-	//rebererberbe
 	
 	@Override
 	public void start(Stage primStage) throws Exception {
-		//myTurn = false;
 		//UI stuff
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
 		Label lblPort = new Label("Port");
-		lblPort.setLayoutX(160);
-		lblPort.setLayoutY(360);
+		lblPort.setLayoutY(380);
 		TextField txtPort = new TextField();
+		txtPort.setLayoutY(355);
+		Label lblIP = new Label("IP");
+		lblIP.setLayoutY(380);
+		lblIP.setLayoutX(200);
 		TextField txtIP = new TextField();
 		txtIP.setLayoutX(200);
 		txtIP.setLayoutY(355);
-		txtPort.setLayoutY(355);
+		//Join button - creates listener which begins the thread
 		Button btnJoin = new Button("Join");
+		btnJoin.setLayoutY(400);
 		btnJoin.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -58,24 +61,24 @@ public class ClientMain extends Main {
 				});
 			}
 		});
-		
+		//add it all to the UI
 		contentPane.getChildren().add(lblPort);
 		contentPane.getChildren().add(txtIP);
+		contentPane.getChildren().add(lblIP);
 		contentPane.getChildren().add(txtPort);
 		contentPane.getChildren().add(btnJoin);
-		btnJoin.setLayoutY(385);
 		primStage.setScene(boardScene);
 		primStage.show();
 	}
 	
-	//this method creates and starts the client handler thread- it continually listens to the socket in the background and uses the results to make commands
+	//this method creates and starts the handler thread- it continually listens to the socket in the background and uses the results to make commands
 	private void startHandler() {
 		new Thread(() -> {
 			try {
 				s = new Socket(ipAddress,port);
 				din = new DataInputStream(s.getInputStream());
 				dout = new DataOutputStream(s.getOutputStream());
-				//ideally this loop will allow us to continually read inputs from the server
+				//ideally this loop in this thread will allow us to continually read inputs from the server
 				while(!dead) {
 					msgout = "";
 					msgin = din.readUTF();
@@ -97,7 +100,7 @@ public class ClientMain extends Main {
 						}
 						if(!splat.equals("response")){
 							//if it's already a response, don't respond
-							// (responding to a response makes it re-execute)
+							//(responding to a response makes it re-execute)
 							try {
 								dout.writeUTF(msgout);
 							} catch (IOException e) {
@@ -106,6 +109,10 @@ public class ClientMain extends Main {
 						}
 					}
 				}
+				//kill sockets when dead
+				s.close();
+				din.close();
+				dout.close();
 				return;
 				//kill thread when dead
 			}
@@ -115,6 +122,7 @@ public class ClientMain extends Main {
 		}).start();
 	}
 	
+	//try to keep things from breaking when the application is closed
 	public void stop() {
 		try {
 			dead = true;
@@ -125,13 +133,13 @@ public class ClientMain extends Main {
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
 	void makeCommands(Space target) {
 		//When you click a space, make an attack command and ping it away
 		int ex = target.x;
 		int ey = target.y;
-		String msg = (ex+"|"+ey+"|attack|init|fromClientmain");
-		
+		String msg = (ex+"|"+ey+"|attack|init|fromClientmain");		
 		try {
 			dout.writeUTF(msg);
 			setTurn(false);
@@ -145,57 +153,10 @@ public class ClientMain extends Main {
 		return "Clientmain";
 	}
 
-	//Placement of 5 ships only on non occupied spaces
+	//sets the client to wait after its ships are placed
 	@Override
-	void shipPlacement(Space selection) {
-		int ex = selection.x;
-		int ey = selection.y;
-		Space[] spaces;
-		Space origin = boardPlayerState[ex][ey];
-		ExShip newShip;
-		switch (shipsPlaced) {
-		case 0:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 1:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 2:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				shipsPlaced++;
-			}
-			break;
-
-		case 3:
-			if (!selection.hasShip) {
-				newShip = new ExShip(origin,new Space[] {origin}); 
-				ships.add(newShip);
-				redrawBoards();
-				setTurn(false);
-				shipsPlaced++;
-			}
-			break;
-
-		default:
-			break;
-
-		}
-
+	void donePlacing() {
+		setTurn(false);
 	}
 
 }

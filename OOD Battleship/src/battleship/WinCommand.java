@@ -7,19 +7,16 @@ public class WinCommand implements Command{
 		this.target = target;
 
 	}
+	
+	//realize you've won, make it known
 	@Override
 	public String execute() {
 		target.setTurn(false);
 		target.setLabel("YOU WIN!");
 		target.lastSelected.targHit();
 		target.redrawBoards();
+		target.dead = true;
 		return "win";
-	}
-
-	@Override
-	public void execute(Space[][] spaces) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

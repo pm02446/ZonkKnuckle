@@ -4,6 +4,9 @@ public class Battleship implements Ship {
 	private Space[] spaces;
 	public Battleship(Space[] spaces){
 		this.spaces = spaces;
+		for(Space s:spaces) {
+			s.addShip(this);
+		}
 	}
 
 	@Override
@@ -13,7 +16,6 @@ public class Battleship implements Ship {
 
 	@Override
 	public Space[] getSpaces() {
-		
 		return spaces;
 	}
 
