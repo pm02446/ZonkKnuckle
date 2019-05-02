@@ -22,9 +22,4 @@ public class HitCommand implements Command {
 		return "";
 	}
 
-	@Override
-	public void execute(Space[][] spaces) {
-		// TODO Auto-generated method stub
-	}
-
 }

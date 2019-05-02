@@ -11,6 +11,8 @@ public class AttackCommand implements Command{
 		this.xCord = x;
 		this.yCord = y;
 	}
+	
+	//Hits the targeted space, checks for a win, and responds
 	public String execute() {
 		String result = target.boardPlayerState[xCord][yCord].hit();
 		target.redrawBoards();
@@ -23,13 +25,7 @@ public class AttackCommand implements Command{
 		else {
 			target.setTurn(true);
 			return result;
-		}
-		
-	}
-	public void execute(Space[][] spaces) {
-		String result = spaces[xCord][yCord].hit();
-		weirdoDemo.redrawBoards();
-		target.fact.makeCommand(weirdoDemo, result).execute();
+		}	
 	}
 
 }

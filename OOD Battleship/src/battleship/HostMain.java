@@ -28,21 +28,20 @@ public class HostMain extends Main {
 	
 	String msgout = "X|X|error";
 	String msgin = "";
-	boolean dead = false;
 	//TODO: remove temp command
 	Command temp;
 	
 	@Override
 	public void start(Stage primStage) throws Exception {
-		//myTurn = false;
 		//UI Stuff (host=specific)
 		Pane contentPane = totalInit();
 		Scene boardScene = new Scene(contentPane);
 		Label lblPort = new Label("Port");
-		//lblPort.setLayoutX(160);
 		lblPort.setLayoutY(380);
 		TextField txtPort = new TextField();
 		txtPort.setLayoutY(355);
+		
+		//Host button - creates listener which begins the thread
 		Button btnHost = new Button("Host");
 		btnHost.setLayoutY(400);
 		btnHost.setOnAction(new EventHandler<ActionEvent>() {
@@ -57,7 +56,7 @@ public class HostMain extends Main {
 				});
 			}
 		});
-		
+		//add it all to the UI
 		contentPane.getChildren().add(lblPort);
 		contentPane.getChildren().add(txtPort);
 		contentPane.getChildren().add(btnHost);
@@ -65,7 +64,7 @@ public class HostMain extends Main {
 		primStage.show();
 	}
 
-	//test
+	//this method creates and starts the handler thread- it continually listens to the socket in the background and uses the results to make commands
 	public void stop() {
 		try {
 			dead = true;
@@ -79,6 +78,8 @@ public class HostMain extends Main {
 			e.printStackTrace();
 		}
 	}
+	
+	//Implementing the method from the abstract Main
 	@Override
 	void makeCommands(Space target) {
 		//when you click a space, make an attack command and send it
@@ -136,6 +137,11 @@ public class HostMain extends Main {
 						}
 					}
 				}
+				//close the sockets when dead
+				s.close();
+				ss.close();
+				din.close();
+				dout.close();
 				return;
 				//kill thread when dead
 			}

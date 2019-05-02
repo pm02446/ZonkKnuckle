@@ -27,6 +27,7 @@ public abstract class Main extends Application{
 	Label turnDisp = new Label();
 	ArrayList<Ship> ships = new ArrayList<Ship>();
 	Space lastSelected;
+	boolean dead = false;
 	
 	public static void main(String[] args) {
 		launch();
@@ -112,7 +113,8 @@ public abstract class Main extends Application{
 			}
 		}
 	}
-	//this is so we can select a new space to place ships only on unoccupied spaces
+	
+	//This method allows the Main class to check spaces where ships will be placed, and place them there if the space is valid
 	void shipPlacement(Space selection) {
 		int ex = selection.x;
 		int ey = selection.y;
@@ -209,8 +211,8 @@ public abstract class Main extends Application{
 	public void reinitBoards() {
 		for(int x=0;x<10;x++) {
 			for(int y=0;y<10;y++) {
-				boardPlayerState[x][y] = new Space(false, x, y); //space constructor w/ boolean determines target/playfield status
-				boardFoeState[x][y] = new Space(true,x, y);
+				boardPlayerState[x][y] = new Space(x, y); //space constructor w/ boolean determines target/playfield status
+				boardFoeState[x][y] = new Space(x, y);
 			}
 		}
 	}
@@ -238,6 +240,7 @@ public abstract class Main extends Application{
 			});
 		}
 	}
+	
 	//this method sets the label to a string
 	public void setLabel(String stuff) {
 		Platform.runLater(new Runnable() {
@@ -247,6 +250,7 @@ public abstract class Main extends Application{
 	    }
 	});
 	}
+	
 	//this method checks the ships arraylist to see if all the ships are destroyed
 	public boolean doILose() {
 		for(Ship s:this.ships) {

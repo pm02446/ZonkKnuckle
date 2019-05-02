@@ -17,11 +17,4 @@ public class MissCommand implements Command{
 	target.redrawBoards();
 	return "";
 	}
-
-	@Override
-	public void execute(Space[][] spaces) {
-
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -21,8 +21,6 @@ public class Cruiser implements Ship{
 		return spaces;
 	}
 
-	
-
 	@Override
 	public boolean isDestroyed() {
 		for(Space space : spaces){

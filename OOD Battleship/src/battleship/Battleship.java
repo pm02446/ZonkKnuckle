@@ -16,7 +16,6 @@ public class Battleship implements Ship {
 
 	@Override
 	public Space[] getSpaces() {
-		
 		return spaces;
 	}
 

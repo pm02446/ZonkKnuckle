@@ -17,9 +17,7 @@ public class Carrier implements Ship {
 	@Override
 	public Space[] getSpaces() {
 		return spaces;
-	}
-
-	
+	}	
 
 	@Override
 	public boolean isDestroyed() {

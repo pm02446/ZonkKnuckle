@@ -1,6 +1,7 @@
 package battleship;
 
 public class Destroyer implements Ship {
+	
 	private Space[] spaces;
 	public Destroyer(Space[] spaces){
 		this.spaces = spaces;
@@ -19,8 +20,6 @@ public class Destroyer implements Ship {
 		
 		return spaces;
 	}
-
-	
 
 	@Override
 	public boolean isDestroyed() {

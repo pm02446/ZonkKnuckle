@@ -41,6 +41,8 @@ public class Space extends ImageView {
 	public boolean hasShip() {
 		return this.hasShip;
 	}
+	
+	//this one is important - if this space contains a ship, return a hit, otherwise return a miss
 	public String hit() {
 		this.isHit = true;
 		if(hasShip) {
@@ -49,35 +51,13 @@ public class Space extends ImageView {
 		}
 		else return (x+"|"+y+"|miss|response|from"+identifier);
 	}
-	public Space(boolean target){
+
+	public Space(int x, int y) {
 		hasShip = false;
 		isHit = false;
-		isTarget = target;
-		if(target) {
-			spacePic = trans;
-		}
-		else {
-			spacePic = trans;
-		}
-	}
-	public Space(Image image) {
-		super(image);
-	}
-	public Space() {
-		super();
-	}
-	public Space(boolean target, int x, int y) {
-		hasShip = false;
-		isHit = false;
-		isTarget = target;
 		this.x = x;
 		this.y = y;		
-		if(target) {
-			spacePic = trans;
-		}
-		else {
-			spacePic = trans;
-		}
+		spacePic = trans;
 	}
 	public void setCoords(int x, int y) {
 		this.x = x;
